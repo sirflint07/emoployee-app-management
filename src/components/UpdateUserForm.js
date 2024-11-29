@@ -1,0 +1,60 @@
+import React from 'react'
+import { useState, useReducer } from 'react'
+
+function UpdateUserForm() {
+    const formReducer = (state, event) => {
+        return {
+            ...state,
+            [event.target.name]: event.target.value
+        }
+    }
+
+    const [formData, setFormData] = useReducer(formReducer, {})
+    const [notify, setNotify] =  useState(false)
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        if(Object.keys(formData).length === 0 && notify) {
+            console.log('Empty file')
+        }
+       // console.log(formData)
+        inputData.push(formData);
+        console.log(inputData)
+
+    }
+
+    const inputData = []
+
+  return (
+    <div className='mb-10'>
+    <p>Update User Details</p>
+      <form className='grid grid-cols-1 lg:grid-cols-3' onSubmit={handleFormSubmit}>
+        <div>
+        <input autoComplete='true' type='text' name='firstname' className='px-1 mb-3 border border-slate-200 block rounded-md w-5/6 py-1' placeholder='First Name' onChange={setFormData}/>
+        <input autoComplete='true' type='text' name='lastname' className='px-1 mb-3 border border-slate-200 block rounded-md w-5/6 py-1' placeholder='Last Name' onChange={setFormData}/>
+        <input autoComplete='true' type='text' name='email' className='px-1 mb-3 border border-slate-200 block rounded-md w-5/6 py-1' placeholder='Email' onChange={setFormData}/>
+        <input type='submit' value='Update User' className='bg-indigo-700 mb-3 px-3 py-2 text-slate-100 rounded-md border border-white font-medium cursor-pointer hover:bg-slate-100 outline hover:outline-yellow-300 hover:text-zinc-700 hover:outline-1'/>
+        </div>
+        <div>
+        <input type='text' name='salary' className='px-1 mb-3 border border-slate-200 block rounded-md w-5/6 py-1' placeholder='Salary' onChange={setFormData}/>
+        <input type='date' name='birthday' className='px-1 mb-3 py-2 text-sm border border-slate-200 block rounded-md w-5/6' placeholder='Date of Birth' onChange={setFormData}/>
+        <div className='space-x-5'>
+        <div className='inline-block space-x-1 align-text-bottom'>
+            <input type='radio' id='active' value='active' className='form-check-input appearance-none rounded-full w-4 h-4 border border-gray-950 bg-slate-100 align-middle checked:bg-green-500 checked:border checked:border-gray-900' onChange={setFormData}/>
+            <label htmlFor='active' className='align-baseline'>Active</label>
+        </div>
+        <div className='inline-block space-x-1 align-text-bottom'>
+            <input type='radio' id='inactive' value='inactive' className='form-check-input appearance-none rounded-full w-4 h-4 border border-gray-950 bg-slate-100 align-middle checked:bg-green-500 checked:border checked:border-gray-500' onChange={setFormData}/>
+            <label htmlFor='inactive' className='align-baseline'>Inactive</label>
+            
+        </div>
+        </div>
+        </div>
+        {/* {(Object.keys(formData).length === 0 && setNotify) && <div>Please input form fields</div>} */}
+        
+      </form>
+    </div>
+  )
+}
+
+export default UpdateUserForm;
